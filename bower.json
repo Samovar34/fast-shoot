@@ -1,0 +1,27 @@
+{
+  "name": "fast-shoot",
+  "description": "simple 2 player web game",
+  "main": "index.js",
+  "authors": [
+    "unscript"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "html5",
+    "node",
+    "nodejs",
+    "game"
+  ],
+  "homepage": "https://github.com/unscript/fast-shoot",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "phaser": "https://github.com/photonstorm/phaser.git#^2.6.2"
+  }
+}
