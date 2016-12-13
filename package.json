@@ -4,6 +4,14 @@
   "description": "simple 2 player web game",
   "main": "index.js",
   "scripts": {
+    "start": "",
+    "html": "gulp html",
+    "style": "gulp style",
+    "img": "gulp img",
+    "js": "gulp js",
+    "lib": "gulp lib",
+    "build:client": "gulp build:client",
+    "watch": "gulp watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +31,11 @@
   },
   "homepage": "https://github.com/unscript/fast-shoot#readme",
   "devDependencies": {
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean-css": "^2.2.2",
+    "gulp-file-include": "^1.0.0",
+    "gulp-sass": "^3.0.0",
+    "gulp-uglify": "^2.0.0"
   }
 }
