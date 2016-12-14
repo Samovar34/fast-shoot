@@ -41,3 +41,6 @@ build
 
 #bower
 bower_components
+
+#tmp
+tmp
