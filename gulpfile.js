@@ -12,8 +12,8 @@ var paths = {
     },
     src: {
         server: {
-            json: "server/**/*.json",
-            js: "server/**/*.js"
+            json: "src/server/**/*.json",
+            js: "src/server/**/*.js"
         },
         client: {
             html: "src/client/*.html",
@@ -25,8 +25,8 @@ var paths = {
     },
     watch: {
         server: {
-            json: "./server/**/*.json",
-            js: "./server/**/*.js"
+            json: "src/server/**/*.json",
+            js: "src/server/**/*.js"
         },
         client: {
             html: "src/client/*.html",
@@ -84,6 +84,24 @@ gulp.task("build:client", ()=> {
     gulp.start("lib");
 });
 
+// SERVER BUILD TASKS
+
+gulp.task("server:js", () => {
+    gulp.src(paths.src.server.js)
+        .pipe(gulp.dest(paths.build.node));
+});
+
+gulp.task("server:json", () => {
+    gulp.src(paths.src.server.json)
+        .pipe(gulp.dest(paths.build.node));
+});
+
+gulp.task("build:server", () => {
+    gulp.start("server:js");
+    gulp.start("server:json");
+});
+
+
 // WATCH TASKS
 
 // слежка за файлами SCSS
@@ -96,11 +114,20 @@ gulp.task('js:watch', () => {
   gulp.watch(paths.watch.client.js, ['js']);
 });
 
+// слежка за файлами JS
+gulp.task('node:watch', () => {
+  gulp.watch(paths.watch.server.js, ['server:js']);
+});
+
 // инкрементальная сборка клиента
 gulp.task('watch', () => {
   gulp.start("style:watch");
   gulp.start("js:watch");
+  gulp.start("node:watch");
 });
 
-// SERVER BUILD TASKS
-// TODO: подготовить скрипты для сборки сервера. Подумать над перезапуском сервера.
+gulp.task("default", () => {
+    gulp.start("build:client");
+    gulp.start("build:server");
+    gulp.start("watch");
+});
