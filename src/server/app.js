@@ -1,5 +1,6 @@
 const http = require("http");
 const util = require("util");
+const fileToMime = require("./modules/fileToMime");
 
 // PARAMS
 const PORT = 8080;
@@ -23,7 +24,9 @@ http.createServer((req, res) => {
     
 
     // end res
-    res.end(path);
+    var end = fileToMime(path);
+    console.log(end);
+    res.end(end);
     console.log("Got %s request. Url:%s", req.method, req.url);
 }).listen(PORT);
 
