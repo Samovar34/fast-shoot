@@ -3,17 +3,27 @@
  */
 
 const MIME = {
+    // BASIC
     "css": "text/css",
     "html": "text/html",
     "htm": "text/html",
     "js": "text/javascript",
+
+    // AUDIO
     "mp4": "audio/mp4", // TODO: уточнить расширение файла
     "mp3": "audio/mpeg",
     "ogg": "audio/ogg",
-    "json": "application/json",
+
+    // IMG
     "gif": "image/gif",
     "jpeg": "image/jpeg",
-    "png": "image/png"
+    "png": "image/png",
+
+    // SPECIAL
+    "json": "application/json",
+
+    // DEFAULT
+    "txt": "text/plain"
 };
 
 
@@ -34,8 +44,8 @@ module.exports = (path) => {
    var result = path.match(/\.(\w*)$/i);
 
    if (result == null) {
-       return null;
+       return MIME["txt"];
    } else {
-       return (MIME[result[1]] || null);
+       return (MIME[result[1]] || MIME["txt"]);
    }
 };
