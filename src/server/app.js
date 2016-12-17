@@ -1,6 +1,7 @@
 const http = require("http");
 const util = require("util");
 const fileToMime = require("./modules/fileToMime");
+const url = require("url");
 
 // PARAMS
 const PORT = 8080;
@@ -13,21 +14,30 @@ const PORT = 8080;
  *  4. Работа с веб сокетами (socket.io игровой сервер)
 */
 
-http.createServer((req, res) => {
-    var path = req.url;
+var server = http.createServer();
+
+server.on("request", (req, res) => {
+    // пропарсим url
+    var urlParsed = url.parse(req.url);
 
     // базовая обработка req
     // обработка ошибок
     // доступ только к публичным файлам
-    // обработка http методов
+    // обработка http методов   
 
-    
+    // headers
+    // отмена кеширования
+    res.setHeader("Cache-control", "no-cache, no-store, must-revalidate");
 
     // end res
-    var end = fileToMime(path);
+    var end = fileToMime(urlParsed.pathname);
     console.log(end);
     res.end(end);
-    console.log("Got %s request. Url:%s", req.method, req.url);
-}).listen(PORT);
+    //console.log("Got %s request. Url:%s", req.method, urlParsed.pathname);
+    //console.log(urlParsed);
+});
 
-console.log("SERVER: OK!\nPORT: %d\n", PORT);
+server.listen(PORT, () => {
+    console.log("SERVER: OK!\nPORT: %d\n", PORT);
+});
+
