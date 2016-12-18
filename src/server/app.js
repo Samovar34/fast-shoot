@@ -5,6 +5,7 @@ const url = require("url");
 
 // PARAMS
 const PORT = 8080;
+const PATTERN = /\/public\/.+/i; // path to public
 
 /* 
  * TODO: 
@@ -20,6 +21,7 @@ server.on("request", (req, res) => {
     // пропарсим url
     var urlParsed = url.parse(req.url);
 
+
     // базовая обработка req
     // обработка ошибок
     // доступ только к публичным файлам
@@ -29,8 +31,12 @@ server.on("request", (req, res) => {
     // отмена кеширования
     res.setHeader("Cache-control", "no-cache, no-store, must-revalidate");
 
+    // ^/public*/
+    var result = pattern.test(urlParsed.pathname);
+
     // end res
     var end = fileToMime(urlParsed.pathname);
+    end += "\n" + result;
     console.log(end);
     res.end(end);
     //console.log("Got %s request. Url:%s", req.method, urlParsed.pathname);
