@@ -1,11 +1,12 @@
 const http = require("http");
 const util = require("util");
-const fileToMime = require("./modules/fileToMime");
 const url = require("url");
+
+const sendFile = require("./modules/sendFile");
 
 // PARAMS
 const PORT = 8080;
-const PATTERN = /\/public\/.+/i; // path to public
+//const PATTERN = /\/public\/.+/i; // path to public
 
 /* 
  * TODO: 
@@ -31,16 +32,14 @@ server.on("request", (req, res) => {
     // отмена кеширования
     res.setHeader("Cache-control", "no-cache, no-store, must-revalidate");
 
-    // ^/public*/
-    var result = pattern.test(urlParsed.pathname);
-
-    // end res
-    var end = fileToMime(urlParsed.pathname);
-    end += "\n" + result;
-    console.log(end);
-    res.end(end);
-    //console.log("Got %s request. Url:%s", req.method, urlParsed.pathname);
-    //console.log(urlParsed);
+    if (urlParsed.pathname === "/") {
+        sendFile("index.html", __dirname, res);
+    } else if (urlParsed.pathname === "/bla") {
+        res.end("/bla");
+    } else {
+        res.statusCode = 404;
+        res.end("Not found");
+    }
 });
 
 server.listen(PORT, () => {
