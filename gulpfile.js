@@ -104,6 +104,11 @@ gulp.task("build:server", () => {
 
 // WATCH TASKS
 
+//слежка за html
+gulp.task('html:watch', () => {
+  gulp.watch(paths.watch.client.html, ['html']);
+});
+
 // слежка за файлами SCSS
 gulp.task('style:watch', () => {
   gulp.watch(paths.watch.client.style, ['style']);
@@ -121,6 +126,7 @@ gulp.task('node:watch', () => {
 
 // инкрементальная сборка клиента
 gulp.task('watch', () => {
+  gulp.start("html:watch");
   gulp.start("style:watch");
   gulp.start("js:watch");
   gulp.start("node:watch");

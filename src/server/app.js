@@ -6,7 +6,7 @@ const sendFile = require("./modules/sendFile");
 
 // PARAMS
 const PORT = 8080;
-//const PATTERN = /\/public\/.+/i; // path to public
+const PATTERN = /\/public\/.+/i; // path to public
 
 /* 
  * TODO: 
@@ -32,10 +32,12 @@ server.on("request", (req, res) => {
     // отмена кеширования
     res.setHeader("Cache-control", "no-cache, no-store, must-revalidate");
 
+    console.log(req.headers.accept);
+
     if (urlParsed.pathname === "/") {
         sendFile("index.html", __dirname, res);
-    } else if (urlParsed.pathname === "/bla") {
-        res.end("/bla");
+    } else if (PATTERN.test(urlParsed.pathname)) {
+        sendFile(urlParsed.pathname, __dirname, res);
     } else {
         res.statusCode = 404;
         res.end("Not found");

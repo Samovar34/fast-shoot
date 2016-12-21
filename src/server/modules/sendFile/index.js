@@ -3,17 +3,18 @@ const fileToMime = require("../fileToMime"),
       path       = require("path");
 
 function send(pathToResource, base, res) {
-    let fullPath = path.normalize(path.join(base, "public", pathToResource));
+    var resourseRoot = (pathToResource === "index.html") ? "public" : "";
+    let fullPath = path.normalize(path.join(base, resourseRoot, pathToResource));
     var file = fs.createReadStream(fullPath);
 
-    res.setHeader("Content-type", fileToMime(fullPath) + "; charset: utf-8");
-
-    file.pipe(res);
-
+    file.on("open", () => {
+        res.setHeader("Content-type", fileToMime(fullPath) + "; charset: utf-8");
+        file.pipe(res);
+    });
+    
     file.on("error", (err) => {
-        console.log("MY CATCH %s", err.message);
-        res.setHeader("Content-type", "texp/plain; charset: utf-8");
-        res.statusCode = 400;
+        res.setHeader("Content-type", "text/plain; charset: utf-8");
+        res.statusCode = 404;
         res.end("Not found");
     });
 
