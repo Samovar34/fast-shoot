@@ -32,7 +32,7 @@ const MIME = {
 * @return {string|null} mime type 
 */
 module.exports = (path) => {
-    console.log(path);
+
     if (typeof path !== "string" && !(path instanceof Buffer))  {
         return false;
     };

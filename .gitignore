@@ -39,6 +39,9 @@ jspm_packages
 #build
 build
 
+#idea
+.idea
+
 #bower
 bower_components
 
