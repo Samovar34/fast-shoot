@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node build/app.js",
+    "inspect": "node --inspect build/app.js",
     "gulp": "gulp",
     "html": "gulp html",
     "style": "gulp style",

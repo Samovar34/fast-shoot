@@ -2,7 +2,7 @@ const gulp = require("gulp"),
       sass = require("gulp-sass"),
       autoprefixer = require("gulp-autoprefixer");
 
-var paths = {
+let paths = {
     build: {
         public: "build/public/",
         style: "build/public/style",
@@ -35,7 +35,7 @@ var paths = {
             img: "src/client/img/*.*"
         }
     }
-}
+};
 
 // CLIENT BUILD TASKS
 
