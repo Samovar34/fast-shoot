@@ -1,5 +1,6 @@
 const gulp = require("gulp"),
       sass = require("gulp-sass"),
+      nodemon = require('gulp-nodemon'),
       autoprefixer = require("gulp-autoprefixer");
 
 let paths = {
@@ -132,8 +133,27 @@ gulp.task('watch', () => {
   gulp.start("node:watch");
 });
 
+// запуск сервера и автоматический перезапуск
+gulp.task("run", () => {
+    let stream = nodemon({
+        script: "./build/app.js",
+        ignore: ["./node_modules/"],
+        ext: "js"
+    });
+
+    stream
+        .on("restart", () => {
+            console.log("Server restarted");
+        })
+        .on("crash", () => {
+            console.error("App has crashed");
+            stream.emit("restart", 5);
+        });
+});
+
 gulp.task("default", () => {
     gulp.start("build:client");
     gulp.start("build:server");
     gulp.start("watch");
+    gulp.start("run");
 });

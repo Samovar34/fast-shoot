@@ -24,6 +24,8 @@ server.on("request", (req, res) => {
     let address = req.socket.address();
     console.log(`got req from ${address.address}:${address.port}`);
 
+    res.setHeader("Cache-control", "no-cache, no-store, must-revalidate");
+
     // пропарсим url
     var urlParsed = url.parse(req.url);
     

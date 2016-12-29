@@ -35,7 +35,7 @@ module.exports = (path) => {
 
     if (typeof path !== "string" && !(path instanceof Buffer))  {
         return false;
-    };
+    }
 
     if (path instanceof Buffer) {
         path = path.toString("utf8");

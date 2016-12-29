@@ -1,10 +1,13 @@
+/*
+* Модуль отсылает файл клиенту
+*/
 const fileToMime = require("../fileToMime"),
       fs         = require("fs"),
       path       = require("path");
 
 function send(pathToResource, base, res) {
-    var resourseRoot = (pathToResource === "index.html") ? "public" : "";
-    let fullPath = path.normalize(path.join(base, resourseRoot, pathToResource));
+    var resourceRoot = (pathToResource === "index.html") ? "public" : "";
+    let fullPath = path.normalize(path.join(base, resourceRoot, pathToResource));
     var file = fs.createReadStream(fullPath);
 
     file.on("open", () => {
@@ -22,6 +25,7 @@ function send(pathToResource, base, res) {
         res.end();
     });
 
+    // если клиент разорвал соединение, то уничтожить поток чтения
     res.on("close", () => {
         file.destroy();
     });

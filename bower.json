@@ -22,6 +22,7 @@
     "tests"
   ],
   "dependencies": {
-    "phaser": "https://github.com/photonstorm/phaser.git#^2.6.2"
+    "phaser": "https://github.com/photonstorm/phaser.git#^2.6.2",
+    "reset-scss": "^2.0.2"
   }
 }
